@@ -117,14 +117,7 @@ class Win720:
         return ret['orderNo'], ret['orderDate']
 
     def _doConnPro(self, auth_ctrl: auth.AuthController, win720_round: str, extracted_num: str, username: str, orderNo: str, orderDate: str) -> str:
-       payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT=1&BUY_SET_TYPE=SA&BUY_TYPE=A&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=1000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(
-            win720_round,
-            "{}{}".format(1, extracted_num),  # 1개만 구매하므로 첫 번째 번호만 사용
-            orderNo, 
-            orderDate, 
-            username, 
-            win720_round
-        )
+        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO=1{}&BUY_CNT=1&BUY_SET_TYPE=SA&BUY_TYPE=A&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=1000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(win720_round, extracted_num, orderNo, orderDate, username, win720_round)
         headers = self._generate_req_headers(auth_ctrl)
         
         data = {
