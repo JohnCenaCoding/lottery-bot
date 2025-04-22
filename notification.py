@@ -35,15 +35,15 @@ class Notification:
         win720_round = body.get("resultMsg").split("|")[3]
 
         win720_number_str = self.make_win720_number_message(body.get("saleTicket"))
-        message = f"{win720_round}회 연금복권 구매 완료 :moneybag: 남은잔액 : {body['balance']}\n```\n{win720_number_str}```"
+        message = f"{win720_round}회 연금복권 구매 완료 :moneybag: 남은잔액 : {body['balance']}\n```{win720_number_str}```"
         self._send_discord_webhook(webhook_url, message)
 
     def make_win720_number_message(self, win720_number: str) -> str:
-        formatted_numbers = []
-        for number in win720_number.split(","):
-            formatted_number = f"{number[0]}조 " + " ".join(number[1:])
-            formatted_numbers.append(formatted_number)
-        return "\n".join(formatted_numbers)
+        formatted_number = win720_number
+        if "," in win720_number:  # 이전 버전 호환성 유지
+            formatted_number = win720_number.split(",")[0]
+        
+        return f"{formatted_number[0]}조 " + " ".join(formatted_number[1:])
 
     def send_lotto_winning_message(self, winning: dict, webhook_url: str) -> None: 
         assert type(winning) == dict
