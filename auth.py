@@ -53,12 +53,9 @@ class AuthController:
         return copied_headers
 
     def _get_default_auth_cred(self):
-        # 2026년 리뉴얼: 로그인 페이지로 변경
-        res = self.http_client.get(
-            "https://www.dhlottery.co.kr/login",
+        # 2026년 리뉴얼: 로그인"https://www.dhlottery.co.kr/main",            "https://www.dhlottery.co.kr/login",
             headers={"User-Agent": self._REQ_HEADERS["User-Agent"]}
-        )
-        return self._get_j_session_id_from_response(res)
+                return self._get_j_session_id_from_response(res)
 
     def _get_j_session_id_from_response(self, res: requests.Response):
         assert type(res) == requests.Response
